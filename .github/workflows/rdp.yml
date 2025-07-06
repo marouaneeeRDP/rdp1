@@ -1,0 +1,126 @@
+name: RDP avec ngrok
+on:
+  workflow_dispatch:
+    inputs:
+      duration:
+        description: 'Durée de la session en minutes (max 360)'
+        required: true
+        default: '60'
+        type: string
+
+jobs:
+  setup-rdp:
+    runs-on: windows-latest
+    timeout-minutes: 360  # Limite maximale GitHub Actions
+    
+    steps:
+    - name: Valider la durée
+      run: |
+        $duration = [int]"${{ github.event.inputs.duration }}"
+        if ($duration -lt 1 -or $duration -gt 360) {
+          Write-Host "❌ Durée invalide. Doit être entre 1 et 360 minutes."
+          exit 1
+        }
+        Write-Host "✅ Session configurée pour $duration minutes"
+        
+    - name: Activer RDP
+      run: |
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+        Write-Host "✅ RDP activé"
+        
+    - name: Créer utilisateur RDP
+      run: |
+        net user rdpuser "RDP123!" /add
+        net localgroup administrators rdpuser /add
+        Write-Host "✅ Utilisateur RDP créé"
+        
+    - name: Télécharger et installer ngrok
+      run: |
+        Invoke-WebRequest -Uri "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip" -OutFile "ngrok.zip"
+        Expand-Archive -Path "ngrok.zip" -DestinationPath "."
+        Write-Host "✅ ngrok téléchargé et installé"
+        
+    - name: Authentifier ngrok
+      run: |
+        ./ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+        Write-Host "✅ ngrok authentifié"
+        
+    - name: Démarrer tunnel RDP
+      run: |
+        Start-Process -FilePath "./ngrok.exe" -ArgumentList "tcp 3389" -WindowStyle Hidden
+        Write-Host "🚀 Démarrage de ngrok..."
+        Start-Sleep -Seconds 15
+        
+    - name: Obtenir et afficher les informations de connexion
+      run: |
+        $maxAttempts = 10
+        $attempt = 0
+        $rdpUrl = $null
+        
+        while ($attempt -lt $maxAttempts -and $rdpUrl -eq $null) {
+          try {
+            $response = Invoke-RestMethod -Uri "http://localhost:4040/api/tunnels" -TimeoutSec 5
+            if ($response.tunnels.Count -gt 0) {
+              $rdpUrl = $response.tunnels[0].public_url
+              $rdpHost = $rdpUrl -replace "tcp://", ""
+              
+              Write-Host "================================================"
+              Write-Host "🎯 INFORMATIONS DE CONNEXION RDP"
+              Write-Host "================================================"
+              Write-Host "🔗 URL complète: $rdpUrl"
+              Write-Host "🌐 Hôte: $rdpHost"
+              Write-Host "👤 Utilisateur: rdpuser"
+              Write-Host "🔑 Mot de passe: RDP123!"
+              Write-Host "================================================"
+              
+              break
+            }
+          } catch {
+            Write-Host "Tentative $($attempt + 1)/$maxAttempts - En attente de ngrok..."
+            Start-Sleep -Seconds 5
+          }
+          $attempt++
+        }
+        
+        if ($rdpUrl -eq $null) {
+          Write-Host "❌ Impossible d'obtenir l'URL ngrok"
+          exit 1
+        }
+        
+    - name: Maintenir la session RDP
+      run: |
+        $duration = [int]"${{ github.event.inputs.duration }}"
+        $endTime = (Get-Date).AddMinutes($duration)
+        $checkInterval = 30  # Vérifier toutes les 30 secondes
+        
+        Write-Host "⏰ Session active jusqu'à $endTime"
+        Write-Host "🔄 Vérification du statut toutes les $checkInterval secondes"
+        
+        while ((Get-Date) -lt $endTime) {
+          try {
+            # Vérifier si ngrok est toujours actif
+            $response = Invoke-RestMethod -Uri "http://localhost:4040/api/tunnels" -TimeoutSec 5
+            if ($response.tunnels.Count -gt 0) {
+              $remainingTime = ($endTime - (Get-Date)).TotalMinutes
+              Write-Host "✅ $(Get-Date -Format 'HH:mm:ss') - Connexion active (reste $([math]::Round($remainingTime, 1)) min)"
+            } else {
+              Write-Host "⚠️ Tunnel ngrok non trouvé, redémarrage..."
+              Start-Process -FilePath "./ngrok.exe" -ArgumentList "tcp 3389" -WindowStyle Hidden
+              Start-Sleep -Seconds 10
+            }
+          } catch {
+            Write-Host "⚠️ Erreur lors de la vérification du statut ngrok"
+          }
+          
+          Start-Sleep -Seconds $checkInterval
+        }
+        
+        Write-Host "⏰ Durée de session atteinte. Arrêt du workflow."
+        
+    - name: Nettoyage
+      if: always()
+      run: |
+        Write-Host "🧹 Nettoyage en cours..."
+        Get-Process ngrok -ErrorAction SilentlyContinue | Stop-Process -Force
+        Write-Host "✅ Nettoyage terminé"
