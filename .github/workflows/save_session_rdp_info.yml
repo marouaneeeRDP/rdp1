@@ -17,7 +17,7 @@ on:
         required: true
         type: string
       rdp_username:
-        description: 'Nom d\'utilisateur RDP'
+        description: 'Nom d utilisateur RDP'
         required: true
         type: string
         default: 'Administrator'
