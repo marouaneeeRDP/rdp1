@@ -1,0 +1,14 @@
+{
+  "total_files": 2,
+  "total_size_mb": 0.01,
+  "file_types": {
+    ".ini": 1,
+    ".py": 1
+  },
+  "excluded_folders": [
+    {
+      "name": ".venv",
+      "reason": "environment/cache folder"
+    }
+  ]
+}

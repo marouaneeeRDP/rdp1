@@ -1,0 +1,40 @@
+{
+  "path": "C:\\Users\\rdpuser\\Desktop",
+  "files": [
+    {
+      "name": "desktop.ini",
+      "size": 282,
+      "size_mb": 0.0,
+      "modified": "2025-07-06T17:54:36.505569",
+      "extension": ".ini",
+      "is_important": false
+    }
+  ],
+  "subdirs": {
+    "save data": {
+      "path": "C:\\Users\\rdpuser\\Desktop\\save data",
+      "files": [
+        {
+          "name": "saveData.py",
+          "size": 14451,
+          "size_mb": 0.01,
+          "modified": "2025-07-06T19:34:07.165170",
+          "extension": ".py",
+          "is_important": true
+        }
+      ],
+      "subdirs": {},
+      "excluded_dirs": [
+        {
+          "name": ".venv",
+          "reason": "environment/cache folder"
+        }
+      ],
+      "total_size": 14451,
+      "total_size_mb": 0.01
+    }
+  },
+  "excluded_dirs": [],
+  "total_size": 282,
+  "total_size_mb": 0.0
+}

@@ -1,0 +1,637 @@
+{
+  "session_name": "session_20250706_193417_fv-az1390-123",
+  "timestamp": "2025-07-06T19:34:17.313488",
+  "system_info": {
+    "platform": "Windows",
+    "platform_version": "10.0.20348",
+    "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+    "hostname": "fv-az1390-123",
+    "username": "rdpuser"
+  },
+  "running_apps": [
+    {
+      "name": "System",
+      "pid": 4,
+      "exe": "",
+      "start_time": null
+    },
+    {
+      "name": "csrss.exe",
+      "pid": 8,
+      "exe": "C:\\Windows\\System32\\csrss.exe",
+      "start_time": "2025-07-06T17:54:14.366070"
+    },
+    {
+      "name": "Registry",
+      "pid": 124,
+      "exe": "Registry",
+      "start_time": "2025-07-06T17:15:00.564477"
+    },
+    {
+      "name": "fontdrvhost.exe",
+      "pid": 436,
+      "exe": "C:\\Windows\\System32\\fontdrvhost.exe",
+      "start_time": "2025-07-06T17:15:06.003337"
+    },
+    {
+      "name": "smss.exe",
+      "pid": 480,
+      "exe": "C:\\Windows\\System32\\smss.exe",
+      "start_time": "2025-07-06T17:15:02.538765"
+    },
+    {
+      "name": "csrss.exe",
+      "pid": 636,
+      "exe": "C:\\Windows\\System32\\csrss.exe",
+      "start_time": "2025-07-06T17:15:05.568416"
+    },
+    {
+      "name": "wininit.exe",
+      "pid": 708,
+      "exe": "C:\\Windows\\System32\\wininit.exe",
+      "start_time": "2025-07-06T17:15:05.660917"
+    },
+    {
+      "name": "csrss.exe",
+      "pid": 716,
+      "exe": "C:\\Windows\\System32\\csrss.exe",
+      "start_time": "2025-07-06T17:15:05.665372"
+    },
+    {
+      "name": "winlogon.exe",
+      "pid": 780,
+      "exe": "C:\\Windows\\System32\\winlogon.exe",
+      "start_time": "2025-07-06T17:15:05.695145"
+    },
+    {
+      "name": "services.exe",
+      "pid": 852,
+      "exe": "C:\\Windows\\System32\\services.exe",
+      "start_time": "2025-07-06T17:15:05.734388"
+    },
+    {
+      "name": "lsass.exe",
+      "pid": 860,
+      "exe": "C:\\Windows\\System32\\lsass.exe",
+      "start_time": "2025-07-06T17:15:05.777578"
+    },
+    {
+      "name": "python.exe",
+      "pid": 892,
+      "exe": "C:\\Users\\rdpuser\\Desktop\\save data\\.venv\\Scripts\\python.exe",
+      "start_time": "2025-07-06T19:34:16.809825"
+    },
+    {
+      "name": "fontdrvhost.exe",
+      "pid": 1020,
+      "exe": "C:\\Windows\\System32\\fontdrvhost.exe",
+      "start_time": "2025-07-06T17:15:06.003300"
+    },
+    {
+      "name": "dwm.exe",
+      "pid": 1088,
+      "exe": "C:\\Windows\\System32\\dwm.exe",
+      "start_time": "2025-07-06T17:15:06.227920"
+    },
+    {
+      "name": "WmiPrvSE.exe",
+      "pid": 1164,
+      "exe": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+      "start_time": "2025-07-06T19:13:39.577317"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 1380,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T18:40:43.451729"
+    },
+    {
+      "name": "winlogon.exe",
+      "pid": 1520,
+      "exe": "C:\\Windows\\System32\\winlogon.exe",
+      "start_time": "2025-07-06T17:54:14.375962"
+    },
+    {
+      "name": "AzureArcSysTray.exe",
+      "pid": 1568,
+      "exe": "C:\\Windows\\AzureArcSetup\\Systray\\AzureArcSysTray.exe",
+      "start_time": "2025-07-06T17:15:44.169061"
+    },
+    {
+      "name": "explorer.exe",
+      "pid": 1580,
+      "exe": "C:\\Windows\\explorer.exe",
+      "start_time": "2025-07-06T17:54:33.810801"
+    },
+    {
+      "name": "dwm.exe",
+      "pid": 1776,
+      "exe": "C:\\Windows\\System32\\dwm.exe",
+      "start_time": "2025-07-06T17:54:15.662978"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 2032,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:57.330603"
+    },
+    {
+      "name": "vmms.exe",
+      "pid": 2136,
+      "exe": "C:\\Windows\\System32\\vmms.exe",
+      "start_time": "2025-07-06T17:15:06.896264"
+    },
+    {
+      "name": "taskhostw.exe",
+      "pid": 2212,
+      "exe": "C:\\Windows\\System32\\taskhostw.exe",
+      "start_time": "2025-07-06T17:15:07.030796"
+    },
+    {
+      "name": "sihost.exe",
+      "pid": 2220,
+      "exe": "C:\\Windows\\System32\\sihost.exe",
+      "start_time": "2025-07-06T17:54:33.670926"
+    },
+    {
+      "name": "StartMenuExperienceHost.exe",
+      "pid": 2800,
+      "exe": "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe",
+      "start_time": "2025-07-06T17:15:28.825045"
+    },
+    {
+      "name": "provjobd.exe",
+      "pid": 3180,
+      "exe": "C:\\actions\\runner-provisioner-Windows\\etc\\provjobd.exe",
+      "start_time": "2025-07-06T17:53:04.013179"
+    },
+    {
+      "name": "spoolsv.exe",
+      "pid": 3208,
+      "exe": "C:\\Windows\\System32\\spoolsv.exe",
+      "start_time": "2025-07-06T17:15:07.649874"
+    },
+    {
+      "name": "WaAppAgent.exe",
+      "pid": 3516,
+      "exe": "C:\\WindowsAzure\\GuestAgent_2.7.41491.1149_2025-07-01_100628\\WaAppAgent.exe",
+      "start_time": "2025-07-06T17:15:07.713318"
+    },
+    {
+      "name": "TextInputHost.exe",
+      "pid": 3540,
+      "exe": "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe",
+      "start_time": "2025-07-06T18:12:00.070436"
+    },
+    {
+      "name": "WindowsAzureGuestAgent.exe",
+      "pid": 3572,
+      "exe": "C:\\WindowsAzure\\GuestAgent_2.7.41491.1149_2025-07-01_100628\\WindowsAzureGuestAgent.exe",
+      "start_time": "2025-07-06T17:15:07.723242"
+    },
+    {
+      "name": "SMSvcHost.exe",
+      "pid": 3596,
+      "exe": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\SMSvcHost.exe",
+      "start_time": "2025-07-06T17:15:07.731043"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 3632,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:58.843600"
+    },
+    {
+      "name": "ShellExperienceHost.exe",
+      "pid": 3636,
+      "exe": "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe",
+      "start_time": "2025-07-06T17:15:47.164666"
+    },
+    {
+      "name": "MsMpEng.exe",
+      "pid": 3756,
+      "exe": "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.25050.5-0\\MsMpEng.exe",
+      "start_time": "2025-07-06T17:15:07.756265"
+    },
+    {
+      "name": "pwsh.exe",
+      "pid": 3768,
+      "exe": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "start_time": "2025-07-06T17:53:35.395165"
+    },
+    {
+      "name": "sqlwriter.exe",
+      "pid": 3796,
+      "exe": "C:\\Program Files\\Microsoft SQL Server\\90\\Shared\\sqlwriter.exe",
+      "start_time": "2025-07-06T17:15:07.763665"
+    },
+    {
+      "name": "mqsvc.exe",
+      "pid": 3872,
+      "exe": "C:\\Windows\\System32\\mqsvc.exe",
+      "start_time": "2025-07-06T17:15:07.785908"
+    },
+    {
+      "name": "dockerd.exe",
+      "pid": 3924,
+      "exe": "C:\\Windows\\System32\\dockerd.exe",
+      "start_time": "2025-07-06T17:15:07.804070"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 4220,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:40:27.034859"
+    },
+    {
+      "name": "WUDFHost.exe",
+      "pid": 4252,
+      "exe": "C:\\Windows\\System32\\WUDFHost.exe",
+      "start_time": "2025-07-06T19:23:30.756331"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 4320,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T17:53:17.733943"
+    },
+    {
+      "name": "SMSvcHost.exe",
+      "pid": 4340,
+      "exe": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\SMSvcHost.exe",
+      "start_time": "2025-07-06T17:15:08.515355"
+    },
+    {
+      "name": "StartMenuExperienceHost.exe",
+      "pid": 4420,
+      "exe": "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe",
+      "start_time": "2025-07-06T17:54:45.954426"
+    },
+    {
+      "name": "taskhostw.exe",
+      "pid": 4480,
+      "exe": "C:\\Windows\\System32\\taskhostw.exe",
+      "start_time": "2025-07-06T17:54:33.922265"
+    },
+    {
+      "name": "vmcompute.exe",
+      "pid": 4560,
+      "exe": "C:\\Windows\\System32\\vmcompute.exe",
+      "start_time": "2025-07-06T17:15:09.743086"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 4736,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:15:29.710387"
+    },
+    {
+      "name": "TextInputHost.exe",
+      "pid": 4820,
+      "exe": "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe",
+      "start_time": "2025-07-06T17:15:28.662817"
+    },
+    {
+      "name": "SearchApp.exe",
+      "pid": 4852,
+      "exe": "C:\\Windows\\SystemApps\\Microsoft.Windows.Search_cw5n1h2txyewy\\SearchApp.exe",
+      "start_time": "2025-07-06T17:15:44.423763"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 4976,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T18:40:49.937864"
+    },
+    {
+      "name": "taskhostw.exe",
+      "pid": 5252,
+      "exe": "C:\\Windows\\System32\\taskhostw.exe",
+      "start_time": "2025-07-06T17:15:21.813125"
+    },
+    {
+      "name": "sihost.exe",
+      "pid": 5316,
+      "exe": "C:\\Windows\\System32\\sihost.exe",
+      "start_time": "2025-07-06T17:15:21.827650"
+    },
+    {
+      "name": "provisioner.exe",
+      "pid": 5336,
+      "exe": "C:\\actions\\runner-provisioner-Windows\\provisioner.exe",
+      "start_time": "2025-07-06T17:15:21.830786"
+    },
+    {
+      "name": "msdtc.exe",
+      "pid": 5388,
+      "exe": "C:\\Windows\\System32\\msdtc.exe",
+      "start_time": "2025-07-06T17:17:15.660852"
+    },
+    {
+      "name": "ctfmon.exe",
+      "pid": 5444,
+      "exe": "C:\\Windows\\System32\\ctfmon.exe",
+      "start_time": "2025-07-06T17:15:21.899354"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 5584,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T17:53:09.078427"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 5592,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:58.836109"
+    },
+    {
+      "name": "rdpclip.exe",
+      "pid": 5640,
+      "exe": "C:\\Windows\\System32\\rdpclip.exe",
+      "start_time": "2025-07-06T17:54:33.010561"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 5656,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T17:15:22.855242"
+    },
+    {
+      "name": "explorer.exe",
+      "pid": 5812,
+      "exe": "C:\\Windows\\explorer.exe",
+      "start_time": "2025-07-06T17:15:23.919477"
+    },
+    {
+      "name": "pwsh.exe",
+      "pid": 5864,
+      "exe": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "start_time": "2025-07-06T18:41:12.557006"
+    },
+    {
+      "name": "py.exe",
+      "pid": 5880,
+      "exe": "C:\\Windows\\py.exe",
+      "start_time": "2025-07-06T19:34:16.798525"
+    },
+    {
+      "name": "taskhostw.exe",
+      "pid": 5912,
+      "exe": "C:\\Windows\\System32\\taskhostw.exe",
+      "start_time": "2025-07-06T17:54:33.220078"
+    },
+    {
+      "name": "vds.exe",
+      "pid": 6100,
+      "exe": "C:\\Windows\\System32\\vds.exe",
+      "start_time": "2025-07-06T17:16:11.171606"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 6192,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:58.962220"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 6200,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:15:48.238350"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 6224,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:55:39.315210"
+    },
+    {
+      "name": "python.exe",
+      "pid": 6236,
+      "exe": "C:\\hostedtoolcache\\windows\\Python\\3.13.5\\x64\\python.exe",
+      "start_time": "2025-07-06T19:34:16.813673"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 6268,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:15:32.062669"
+    },
+    {
+      "name": "dllhost.exe",
+      "pid": 6328,
+      "exe": "C:\\Windows\\System32\\dllhost.exe",
+      "start_time": "2025-07-06T19:12:18.113602"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 6344,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:40:54.987109"
+    },
+    {
+      "name": "Runner.Worker.exe",
+      "pid": 6548,
+      "exe": "C:\\runners\\2.325.0\\bin\\Runner.Worker.exe",
+      "start_time": "2025-07-06T17:53:09.076132"
+    },
+    {
+      "name": "WaSecAgentProv.exe",
+      "pid": 6604,
+      "exe": "C:\\WindowsAzure\\SecAgent\\WaSecAgentProv.exe",
+      "start_time": "2025-07-06T17:15:33.067388"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 6616,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T17:15:33.253711"
+    },
+    {
+      "name": "Runner.Listener.exe",
+      "pid": 6724,
+      "exe": "C:\\runners\\2.325.0\\bin\\Runner.Listener.exe",
+      "start_time": "2025-07-06T17:53:04.475362"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 6836,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:57.039096"
+    },
+    {
+      "name": "ServiceFabricLocalClusterManager.exe",
+      "pid": 6912,
+      "exe": "C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\ServiceFabricLocalClusterManager\\ServiceFabricLocalClusterManager.exe",
+      "start_time": "2025-07-06T17:15:44.628860"
+    },
+    {
+      "name": "pwsh.exe",
+      "pid": 7000,
+      "exe": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "start_time": "2025-07-06T18:40:43.544804"
+    },
+    {
+      "name": "MoUsoCoreWorker.exe",
+      "pid": 7052,
+      "exe": "C:\\Windows\\System32\\MoUsoCoreWorker.exe",
+      "start_time": "2025-07-06T19:33:23.604853"
+    },
+    {
+      "name": "fontdrvhost.exe",
+      "pid": 7064,
+      "exe": "C:\\Windows\\System32\\fontdrvhost.exe",
+      "start_time": "2025-07-06T17:54:15.647093"
+    },
+    {
+      "name": "ngrok.exe",
+      "pid": 7100,
+      "exe": "D:\\a\\rdp1\\rdp1\\ngrok.exe",
+      "start_time": "2025-07-06T17:53:17.731514"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 7316,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:54:55.913159"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 7460,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T18:41:12.376320"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 7572,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:54:46.055211"
+    },
+    {
+      "name": "SearchApp.exe",
+      "pid": 7776,
+      "exe": "C:\\Windows\\SystemApps\\Microsoft.Windows.Search_cw5n1h2txyewy\\SearchApp.exe",
+      "start_time": "2025-07-06T17:54:46.909789"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 7796,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:54:46.930112"
+    },
+    {
+      "name": "pwsh.exe",
+      "pid": 8088,
+      "exe": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "start_time": "2025-07-06T18:40:50.016758"
+    },
+    {
+      "name": "powershell.exe",
+      "pid": 8092,
+      "exe": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "start_time": "2025-07-06T18:41:13.790777"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 8096,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:57.045398"
+    },
+    {
+      "name": "ctfmon.exe",
+      "pid": 8100,
+      "exe": "C:\\Windows\\System32\\ctfmon.exe",
+      "start_time": "2025-07-06T17:54:48.037711"
+    },
+    {
+      "name": "ServiceFabricLocalClusterManager.exe",
+      "pid": 8288,
+      "exe": "C:\\Program Files\\Microsoft SDKs\\Service Fabric\\Tools\\ServiceFabricLocalClusterManager\\ServiceFabricLocalClusterManager.exe",
+      "start_time": "2025-07-06T17:54:58.404727"
+    },
+    {
+      "name": "ShellExperienceHost.exe",
+      "pid": 8460,
+      "exe": "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe",
+      "start_time": "2025-07-06T17:54:58.682177"
+    },
+    {
+      "name": "RuntimeBroker.exe",
+      "pid": 8560,
+      "exe": "C:\\Windows\\System32\\RuntimeBroker.exe",
+      "start_time": "2025-07-06T17:54:58.817637"
+    },
+    {
+      "name": "conhost.exe",
+      "pid": 8608,
+      "exe": "C:\\Windows\\System32\\conhost.exe",
+      "start_time": "2025-07-06T18:41:13.795244"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 8648,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:39:56.771444"
+    },
+    {
+      "name": "Code.exe",
+      "pid": 9004,
+      "exe": "C:\\Users\\rdpuser\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "start_time": "2025-07-06T18:40:42.988786"
+    }
+  ],
+  "desktop_analysis": {
+    "path": "C:\\Users\\rdpuser\\Desktop",
+    "files": [
+      {
+        "name": "desktop.ini",
+        "size": 282,
+        "size_mb": 0.0,
+        "modified": "2025-07-06T17:54:36.505569",
+        "extension": ".ini",
+        "is_important": false
+      }
+    ],
+    "subdirs": {
+      "save data": {
+        "path": "C:\\Users\\rdpuser\\Desktop\\save data",
+        "files": [
+          {
+            "name": "saveData.py",
+            "size": 14451,
+            "size_mb": 0.01,
+            "modified": "2025-07-06T19:34:07.165170",
+            "extension": ".py",
+            "is_important": true
+          }
+        ],
+        "subdirs": {},
+        "excluded_dirs": [
+          {
+            "name": ".venv",
+            "reason": "environment/cache folder"
+          }
+        ],
+        "total_size": 14451,
+        "total_size_mb": 0.01
+      }
+    },
+    "excluded_dirs": [],
+    "total_size": 282,
+    "total_size_mb": 0.0
+  },
+  "files_summary": {
+    "total_files": 2,
+    "total_size_mb": 0.01,
+    "file_types": {
+      ".ini": 1,
+      ".py": 1
+    },
+    "excluded_folders": [
+      {
+        "name": ".venv",
+        "reason": "environment/cache folder"
+      }
+    ]
+  }
+}
