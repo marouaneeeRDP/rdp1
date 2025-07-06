@@ -1,8 +1,13 @@
-name: Save RDP Connection Info
+name: Save RDP Session Data
 
 on:
   workflow_dispatch:
     inputs:
+      session_name:
+        description: 'Nom de la session RDP'
+        required: true
+        type: string
+        default: 'rdp-session'
       rdp_url:
         description: 'URL complète RDP (ex: tcp://2.tcp.ngrok.io:13427)'
         required: true
@@ -21,14 +26,29 @@ on:
         required: true
         type: string
         default: 'RDP123!'
-      file_name:
-        description: 'Nom du fichier à créer/mettre à jour'
+      installed_apps:
+        description: 'Applications installées (séparées par des virgules)'
         required: false
         type: string
-        default: 'rdp_connection_info.txt'
+        default: ''
+      folders_created:
+        description: 'Dossiers créés (séparés par des virgules)'
+        required: false
+        type: string
+        default: ''
+      files_created:
+        description: 'Fichiers créés (séparés par des virgules)'
+        required: false
+        type: string
+        default: ''
+      session_notes:
+        description: 'Notes sur la session'
+        required: false
+        type: string
+        default: ''
 
 jobs:
-  save-rdp-info:
+  save-rdp-session:
     runs-on: ubuntu-latest
     
     steps:
@@ -37,75 +57,301 @@ jobs:
       with:
         token: ${{ secrets.REPO_TOKEN }}
         
-    - name: Create RDP info file
+    - name: Generate session timestamp
+      id: timestamp
       run: |
-        # Créer le dossier s'il n'existe pas
-        mkdir -p rdp_connections
+        TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+        SESSION_ID="${{ inputs.session_name }}_${TIMESTAMP}"
+        echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+        echo "session_id=$SESSION_ID" >> $GITHUB_OUTPUT
+        echo "Session ID: $SESSION_ID"
         
-        # Créer le fichier avec les informations RDP
-        cat > "rdp_connections/${{ inputs.file_name }}" << EOF
+    - name: Create session data directory
+      run: |
+        mkdir -p "rdp_sessions/${{ steps.timestamp.outputs.session_id }}"
+        mkdir -p "rdp_sessions/latest"
+        
+    - name: Create RDP connection info file
+      run: |
+        cat > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/connection_info.txt" << EOF
         ================================================
         🎯 INFORMATIONS DE CONNEXION RDP
         ================================================
+        📋 Session: ${{ inputs.session_name }}
         🔗 URL complète: ${{ inputs.rdp_url }}
         🌐 Hôte: ${{ inputs.rdp_host }}
         👤 Utilisateur: ${{ inputs.rdp_user }}
         🔑 Mot de passe: ${{ inputs.rdp_password }}
         ================================================
         📅 Créé le: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-        📝 Sauvegardé par: GitHub Actions
+        📝 Session ID: ${{ steps.timestamp.outputs.session_id }}
         ================================================
         EOF
         
-        # Afficher le contenu pour vérification (masquer le mot de passe)
-        echo "Contenu du fichier créé:"
-        sed 's/Mot de passe: .*/Mot de passe: [MASQUÉ]/' "rdp_connections/${{ inputs.file_name }}"
-        
-    - name: Create JSON format file
+    - name: Process installed applications
       run: |
-        # Créer aussi une version JSON pour faciliter l'utilisation programmatique
-        cat > "rdp_connections/${{ inputs.file_name }}.json" << EOF
+        if [ -n "${{ inputs.installed_apps }}" ]; then
+          echo "📦 Applications installées dans cette session:" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+          echo "================================================" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+          
+          # Convertir la liste séparée par virgules en liste formatée
+          IFS=',' read -ra APPS <<< "${{ inputs.installed_apps }}"
+          for app in "${APPS[@]}"; do
+            app_trimmed=$(echo "$app" | xargs)  # Supprimer les espaces
+            echo "✅ $app_trimmed" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+          done
+          
+          echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+          echo "Total: ${#APPS[@]} applications installées" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+        else
+          echo "ℹ️ Aucune application spécifiée pour cette session" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/installed_apps.txt"
+        fi
+        
+    - name: Process folders created
+      run: |
+        if [ -n "${{ inputs.folders_created }}" ]; then
+          echo "📁 Dossiers créés dans cette session:" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+          echo "================================================" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+          
+          IFS=',' read -ra FOLDERS <<< "${{ inputs.folders_created }}"
+          for folder in "${FOLDERS[@]}"; do
+            folder_trimmed=$(echo "$folder" | xargs)
+            echo "📂 $folder_trimmed" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+          done
+          
+          echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+          echo "Total: ${#FOLDERS[@]} dossiers créés" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+        else
+          echo "ℹ️ Aucun dossier spécifié pour cette session" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/folders_created.txt"
+        fi
+        
+    - name: Process files created
+      run: |
+        if [ -n "${{ inputs.files_created }}" ]; then
+          echo "📄 Fichiers créés dans cette session:" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+          echo "================================================" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+          
+          IFS=',' read -ra FILES <<< "${{ inputs.files_created }}"
+          for file in "${FILES[@]}"; do
+            file_trimmed=$(echo "$file" | xargs)
+            echo "📄 $file_trimmed" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+          done
+          
+          echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+          echo "Total: ${#FILES[@]} fichiers créés" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+        else
+          echo "ℹ️ Aucun fichier spécifié pour cette session" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/files_created.txt"
+        fi
+        
+    - name: Create session notes
+      run: |
+        if [ -n "${{ inputs.session_notes }}" ]; then
+          echo "📝 Notes de session:" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_notes.txt"
+          echo "================================================" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_notes.txt"
+          echo "${{ inputs.session_notes }}" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_notes.txt"
+        else
+          echo "ℹ️ Aucune note pour cette session" > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_notes.txt"
+        fi
+        
+    - name: Create comprehensive session summary
+      run: |
+        cat > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md" << EOF
+        # 🖥️ Session RDP: ${{ inputs.session_name }}
+        
+        ## 📋 Informations de connexion
+        - **URL complète**: ${{ inputs.rdp_url }}
+        - **Hôte**: ${{ inputs.rdp_host }}
+        - **Utilisateur**: ${{ inputs.rdp_user }}
+        - **Mot de passe**: ${{ inputs.rdp_password }}
+        
+        ## 📅 Détails de la session
+        - **Session ID**: ${{ steps.timestamp.outputs.session_id }}
+        - **Créé le**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        - **Workflow**: ${{ github.workflow }}
+        - **Run ID**: ${{ github.run_id }}
+        
+        ## 📦 Applications installées
+        EOF
+        
+        if [ -n "${{ inputs.installed_apps }}" ]; then
+          IFS=',' read -ra APPS <<< "${{ inputs.installed_apps }}"
+          for app in "${APPS[@]}"; do
+            app_trimmed=$(echo "$app" | xargs)
+            echo "- ✅ $app_trimmed" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+          done
+        else
+          echo "- ℹ️ Aucune application spécifiée" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        fi
+        
+        echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        echo "## 📁 Dossiers créés" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        
+        if [ -n "${{ inputs.folders_created }}" ]; then
+          IFS=',' read -ra FOLDERS <<< "${{ inputs.folders_created }}"
+          for folder in "${FOLDERS[@]}"; do
+            folder_trimmed=$(echo "$folder" | xargs)
+            echo "- 📂 \`$folder_trimmed\`" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+          done
+        else
+          echo "- ℹ️ Aucun dossier spécifié" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        fi
+        
+        echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        echo "## 📄 Fichiers créés" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        
+        if [ -n "${{ inputs.files_created }}" ]; then
+          IFS=',' read -ra FILES <<< "${{ inputs.files_created }}"
+          for file in "${FILES[@]}"; do
+            file_trimmed=$(echo "$file" | xargs)
+            echo "- 📄 \`$file_trimmed\`" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+          done
+        else
+          echo "- ℹ️ Aucun fichier spécifié" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        fi
+        
+        if [ -n "${{ inputs.session_notes }}" ]; then
+          echo "" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+          echo "## 📝 Notes de session" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+          echo "${{ inputs.session_notes }}" >> "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_summary.md"
+        fi
+        
+    - name: Create JSON export
+      run: |
+        # Convertir les listes en arrays JSON
+        APPS_JSON="[]"
+        FOLDERS_JSON="[]"
+        FILES_JSON="[]"
+        
+        if [ -n "${{ inputs.installed_apps }}" ]; then
+          IFS=',' read -ra APPS <<< "${{ inputs.installed_apps }}"
+          APPS_JSON=$(printf '%s\n' "${APPS[@]}" | jq -R . | jq -s .)
+        fi
+        
+        if [ -n "${{ inputs.folders_created }}" ]; then
+          IFS=',' read -ra FOLDERS <<< "${{ inputs.folders_created }}"
+          FOLDERS_JSON=$(printf '%s\n' "${FOLDERS[@]}" | jq -R . | jq -s .)
+        fi
+        
+        if [ -n "${{ inputs.files_created }}" ]; then
+          IFS=',' read -ra FILES <<< "${{ inputs.files_created }}"
+          FILES_JSON=$(printf '%s\n' "${FILES[@]}" | jq -R . | jq -s .)
+        fi
+        
+        # Créer le fichier JSON complet
+        cat > "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/session_data.json" << EOF
         {
+          "session": {
+            "name": "${{ inputs.session_name }}",
+            "id": "${{ steps.timestamp.outputs.session_id }}",
+            "created_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "workflow": "${{ github.workflow }}",
+            "run_id": "${{ github.run_id }}"
+          },
           "rdp_connection": {
             "url": "${{ inputs.rdp_url }}",
             "host": "${{ inputs.rdp_host }}",
             "username": "${{ inputs.rdp_user }}",
-            "password": "${{ inputs.rdp_password }}",
-            "created_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
-            "created_by": "github-actions"
-          }
+            "password": "${{ inputs.rdp_password }}"
+          },
+          "installed_apps": $APPS_JSON,
+          "folders_created": $FOLDERS_JSON,
+          "files_created": $FILES_JSON,
+          "session_notes": "${{ inputs.session_notes }}"
         }
         EOF
+        
+    - name: Update latest session
+      run: |
+        # Copier tous les fichiers vers le dossier "latest"
+        cp -r "rdp_sessions/${{ steps.timestamp.outputs.session_id }}/"* "rdp_sessions/latest/"
+        
+        # Créer un fichier d'index des sessions
+        echo "# 📋 Index des sessions RDP" > "rdp_sessions/sessions_index.md"
+        echo "" >> "rdp_sessions/sessions_index.md"
+        echo "## 🆕 Session la plus récente" >> "rdp_sessions/sessions_index.md"
+        echo "- **Session**: ${{ inputs.session_name }}" >> "rdp_sessions/sessions_index.md"
+        echo "- **ID**: ${{ steps.timestamp.outputs.session_id }}" >> "rdp_sessions/sessions_index.md"
+        echo "- **Créé le**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> "rdp_sessions/sessions_index.md"
+        echo "- **Dossier**: \`rdp_sessions/${{ steps.timestamp.outputs.session_id }}/\`" >> "rdp_sessions/sessions_index.md"
+        echo "" >> "rdp_sessions/sessions_index.md"
+        echo "---" >> "rdp_sessions/sessions_index.md"
+        echo "" >> "rdp_sessions/sessions_index.md"
+        echo "## 📁 Structure des dossiers" >> "rdp_sessions/sessions_index.md"
+        echo '```' >> "rdp_sessions/sessions_index.md"
+        echo "rdp_sessions/" >> "rdp_sessions/sessions_index.md"
+        echo "├── latest/                    # Dernière session" >> "rdp_sessions/sessions_index.md"
+        echo "├── sessions_index.md          # Cet index" >> "rdp_sessions/sessions_index.md"
+        echo "└── ${{ steps.timestamp.outputs.session_id }}/" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── connection_info.txt    # Info de connexion RDP" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── installed_apps.txt     # Applications installées" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── folders_created.txt    # Dossiers créés" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── files_created.txt      # Fichiers créés" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── session_notes.txt      # Notes de session" >> "rdp_sessions/sessions_index.md"
+        echo "    ├── session_summary.md     # Résumé complet" >> "rdp_sessions/sessions_index.md"
+        echo "    └── session_data.json      # Export JSON" >> "rdp_sessions/sessions_index.md"
+        echo '```' >> "rdp_sessions/sessions_index.md"
         
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.name "GitHub Action RDP Session"
         
-        # Ajouter les fichiers
-        git add rdp_connections/
+        # Ajouter tous les fichiers de session
+        git add rdp_sessions/
         
         # Vérifier s'il y a des changements
         if git diff --staged --quiet; then
           echo "Aucun changement détecté, rien à commit"
         else
-          git commit -m "🖥️ Mise à jour des informations de connexion RDP - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "🖥️ Nouvelle session RDP: ${{ inputs.session_name }} - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
           git push
-          echo "✅ Informations RDP sauvegardées avec succès!"
+          echo "✅ Session RDP sauvegardée avec succès!"
         fi
         
     - name: Create summary
       run: |
-        echo "## 🎯 Résumé de la sauvegarde RDP" >> $GITHUB_STEP_SUMMARY
+        echo "## 🎯 Session RDP sauvegardée: ${{ inputs.session_name }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 📋 Informations sauvegardées:" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 Informations de connexion:" >> $GITHUB_STEP_SUMMARY
         echo "- **URL**: ${{ inputs.rdp_url }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Hôte**: ${{ inputs.rdp_host }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Utilisateur**: ${{ inputs.rdp_user }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Fichier**: rdp_connections/${{ inputs.file_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Session ID**: ${{ steps.timestamp.outputs.session_id }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -n "${{ inputs.installed_apps }}" ]; then
+          echo "### 📦 Applications installées:" >> $GITHUB_STEP_SUMMARY
+          IFS=',' read -ra APPS <<< "${{ inputs.installed_apps }}"
+          for app in "${APPS[@]}"; do
+            app_trimmed=$(echo "$app" | xargs)
+            echo "- ✅ $app_trimmed" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ -n "${{ inputs.folders_created }}" ]; then
+          echo "### 📁 Dossiers créés:" >> $GITHUB_STEP_SUMMARY
+          IFS=',' read -ra FOLDERS <<< "${{ inputs.folders_created }}"
+          for folder in "${FOLDERS[@]}"; do
+            folder_trimmed=$(echo "$folder" | xargs)
+            echo "- 📂 \`$folder_trimmed\`" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ -n "${{ inputs.files_created }}" ]; then
+          echo "### 📄 Fichiers créés:" >> $GITHUB_STEP_SUMMARY
+          IFS=',' read -ra FILES <<< "${{ inputs.files_created }}"
+          for file in "${FILES[@]}"; do
+            file_trimmed=$(echo "$file" | xargs)
+            echo "- 📄 \`$file_trimmed\`" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+        fi
+        
         echo "### 📁 Fichiers créés:" >> $GITHUB_STEP_SUMMARY
-        echo "- \`rdp_connections/${{ inputs.file_name }}\` (format texte)" >> $GITHUB_STEP_SUMMARY
-        echo "- \`rdp_connections/${{ inputs.file_name }}.json\` (format JSON)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`rdp_sessions/${{ steps.timestamp.outputs.session_id }}/\` (dossier de session)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`rdp_sessions/latest/\` (lien vers la dernière session)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`rdp_sessions/sessions_index.md\` (index des sessions)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "✅ **Sauvegarde terminée avec succès!**" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Session sauvegardée avec succès!**" >> $GITHUB_STEP_SUMMARY
