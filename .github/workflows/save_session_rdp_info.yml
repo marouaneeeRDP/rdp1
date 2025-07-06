@@ -1,0 +1,111 @@
+name: Save RDP Connection Info
+
+on:
+  workflow_dispatch:
+    inputs:
+      rdp_url:
+        description: 'URL complète RDP (ex: tcp://2.tcp.ngrok.io:13427)'
+        required: true
+        type: string
+      rdp_host:
+        description: 'Hôte RDP (ex: 2.tcp.ngrok.io:13427)'
+        required: true
+        type: string
+      rdp_user:
+        description: 'Nom d\'utilisateur RDP'
+        required: true
+        type: string
+        default: 'rdpuser'
+      rdp_password:
+        description: 'Mot de passe RDP'
+        required: true
+        type: string
+        default: 'RDP123!'
+      file_name:
+        description: 'Nom du fichier à créer/mettre à jour'
+        required: false
+        type: string
+        default: 'rdp_connection_info.txt'
+
+jobs:
+  save-rdp-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.REPO_TOKEN }}
+        
+    - name: Create RDP info file
+      run: |
+        # Créer le dossier s'il n'existe pas
+        mkdir -p rdp_connections
+        
+        # Créer le fichier avec les informations RDP
+        cat > "rdp_connections/${{ inputs.file_name }}" << EOF
+        ================================================
+        🎯 INFORMATIONS DE CONNEXION RDP
+        ================================================
+        🔗 URL complète: ${{ inputs.rdp_url }}
+        🌐 Hôte: ${{ inputs.rdp_host }}
+        👤 Utilisateur: ${{ inputs.rdp_user }}
+        🔑 Mot de passe: ${{ inputs.rdp_password }}
+        ================================================
+        📅 Créé le: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        📝 Sauvegardé par: GitHub Actions
+        ================================================
+        EOF
+        
+        # Afficher le contenu pour vérification (masquer le mot de passe)
+        echo "Contenu du fichier créé:"
+        sed 's/Mot de passe: .*/Mot de passe: [MASQUÉ]/' "rdp_connections/${{ inputs.file_name }}"
+        
+    - name: Create JSON format file
+      run: |
+        # Créer aussi une version JSON pour faciliter l'utilisation programmatique
+        cat > "rdp_connections/${{ inputs.file_name }}.json" << EOF
+        {
+          "rdp_connection": {
+            "url": "${{ inputs.rdp_url }}",
+            "host": "${{ inputs.rdp_host }}",
+            "username": "${{ inputs.rdp_user }}",
+            "password": "${{ inputs.rdp_password }}",
+            "created_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "created_by": "github-actions"
+          }
+        }
+        EOF
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Ajouter les fichiers
+        git add rdp_connections/
+        
+        # Vérifier s'il y a des changements
+        if git diff --staged --quiet; then
+          echo "Aucun changement détecté, rien à commit"
+        else
+          git commit -m "🖥️ Mise à jour des informations de connexion RDP - $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git push
+          echo "✅ Informations RDP sauvegardées avec succès!"
+        fi
+        
+    - name: Create summary
+      run: |
+        echo "## 🎯 Résumé de la sauvegarde RDP" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 Informations sauvegardées:" >> $GITHUB_STEP_SUMMARY
+        echo "- **URL**: ${{ inputs.rdp_url }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Hôte**: ${{ inputs.rdp_host }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Utilisateur**: ${{ inputs.rdp_user }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Fichier**: rdp_connections/${{ inputs.file_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📁 Fichiers créés:" >> $GITHUB_STEP_SUMMARY
+        echo "- \`rdp_connections/${{ inputs.file_name }}\` (format texte)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`rdp_connections/${{ inputs.file_name }}.json\` (format JSON)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Sauvegarde terminée avec succès!**" >> $GITHUB_STEP_SUMMARY
