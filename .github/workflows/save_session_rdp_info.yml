@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       rdp_user:
-        description: 'Nom d\'utilisateur RDP'
+        description: 'Nom d utilisateur RDP'
         required: true
         type: string
         default: 'rdpuser'
