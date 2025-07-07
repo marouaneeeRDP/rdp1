@@ -1,0 +1,12 @@
+[2025-07-07 11:04:02] [rdpuser] === GitHub Desktop選択 & App Installer Started ===
+[2025-07-07 11:04:02] [rdpuser] Detected session user: rdpuser
+[2025-07-07 11:04:02] [rdpuser] System Info: {'username': 'rdpuser', 'hostname': 'fv-az534-97', 'system': 'Windows', 'release': '2022Server', 'version': '10.0.20348', 'machine': 'AMD64', 'processor': 'AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD'}
+[2025-07-07 11:04:02] [rdpuser] Current user session: rdpuser
+[2025-07-07 11:04:02] [rdpuser] Local sync folder: C:\Users\rdpuser\Desktop
+[2025-07-07 11:04:02] [rdpuser] Step 1: Downloading files from repository...
+[2025-07-07 11:04:02] [rdpuser] Searching for folder 'rdpuser' in repo 'marouaneeeRDP/rdp1'
+[2025-07-07 11:04:02] [rdpuser] Connecting to repo: marouaneeeRDP/rdp1
+[2025-07-07 11:04:02] [rdpuser] Looking for folder: rdpuser
+[2025-07-07 11:04:03] [rdpuser] Found 2 items in rdpuser
+[2025-07-07 11:04:03] [rdpuser] Error downloading desktop.ini: [Errno 13] Permission denied: 'C:\\Users\\rdpuser\\Desktop\\desktop.ini'
+[2025-07-07 11:04:03] [rdpuser] Created directory: C:\Users\rdpuser\Desktop\gugfkhj
