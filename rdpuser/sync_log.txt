@@ -10,3 +10,9 @@
 [2025-07-07 11:04:03] [rdpuser] Found 2 items in rdpuser
 [2025-07-07 11:04:03] [rdpuser] Error downloading desktop.ini: [Errno 13] Permission denied: 'C:\\Users\\rdpuser\\Desktop\\desktop.ini'
 [2025-07-07 11:04:03] [rdpuser] Created directory: C:\Users\rdpuser\Desktop\gugfkhj
+[2025-07-07 11:04:04] [rdpuser] Downloaded: New Text Document.txt -> C:\Users\rdpuser\Desktop\gugfkhj\New Text Document.txt
+[2025-07-07 11:04:04] [rdpuser] Downloaded 1 files to C:\Users\rdpuser\Desktop
+[2025-07-07 11:04:04] [rdpuser] Step 2: Comparing and installing software...
+[2025-07-07 11:04:04] [rdpuser] Could not get remote software list: 404 {"message": "Not Found", "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content", "status": "404"}
+[2025-07-07 11:04:04] [rdpuser] === Sync completed successfully ===
+[2025-07-07 11:04:04] [rdpuser] Check C:\Users\rdpuser\Desktop for your downloaded files
