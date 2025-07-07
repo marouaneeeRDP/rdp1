@@ -1,0 +1,17 @@
+[2025-07-07 10:59:06] [rdpuser] === GitHub Desktop選択 & App Installer Started ===
+[2025-07-07 10:59:06] [rdpuser] Detected session user: rdpuser
+[2025-07-07 10:59:06] [rdpuser] System Info: {'username': 'rdpuser', 'hostname': 'fv-az534-97', 'system': 'Windows', 'release': '2022Server', 'version': '10.0.20348', 'machine': 'AMD64', 'processor': 'AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD'}
+[2025-07-07 10:59:06] [rdpuser] Current user session: rdpuser
+[2025-07-07 10:59:06] [rdpuser] Local sync folder: C:\Users\rdpuser\Desktop
+[2025-07-07 10:59:06] [rdpuser] Step 1: Downloading files from repository...
+[2025-07-07 10:59:06] [rdpuser] Searching for folder 'rdpuser' in repo 'marouaneeeRDP/rdp1'
+[2025-07-07 10:59:06] [rdpuser] Connecting to repo: marouaneeeRDP/rdp1
+[2025-07-07 10:59:06] [rdpuser] Looking for folder: rdpuser
+[2025-07-07 10:59:06] [rdpuser] No files found in folder 'rdpuser': 404 {"message": "Not Found", "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content", "status": "404"}
+[2025-07-07 10:59:06] [rdpuser] Available folders in repo:
+[2025-07-07 10:59:07] [rdpuser]   - .github
+[2025-07-07 10:59:07] [rdpuser] Downloaded 0 files to C:\Users\rdpuser\Desktop
+[2025-07-07 10:59:07] [rdpuser] Step 2: Comparing and installing software...
+[2025-07-07 10:59:07] [rdpuser] Could not get remote software list: 404 {"message": "Not Found", "documentation_url": "https://docs.github.com/rest/repos/contents#get-repository-content", "status": "404"}
+[2025-07-07 10:59:07] [rdpuser] === Sync completed successfully ===
+[2025-07-07 10:59:07] [rdpuser] Check C:\Users\rdpuser\Desktop for your downloaded files
